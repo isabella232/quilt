@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- ## [Unreleased] -->
 
+## [0.1.0] - 2020-10-09
+
+### Changed
+
+- Fix typing of Link so it supports the same props as react-router's Link. [1645](https://github.com/Shopify/quilt/pull/1645)
+- Export `MemoryRouter`. [1645](https://github.com/Shopify/quilt/pull/1645)
+- Reexport `useRouteMatch`, `useParams`, `useLocation` and `useHistory` hooks. [1646](https://github.com/Shopify/quilt/pull/1646)
+
 ## [0.0.31] - 2019-08-18
 
 ### Changed

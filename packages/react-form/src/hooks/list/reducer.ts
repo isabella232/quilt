@@ -11,6 +11,8 @@ import {mapObject} from '../../utilities';
 
 type ListAction<Item> =
   | ReinitializeAction<Item>
+  | AddFieldsAction<Item>
+  | RemoveFieldsAction
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
   | ResetAction<Item, keyof Item>
@@ -19,6 +21,16 @@ type ListAction<Item> =
 interface ReinitializeAction<Item> {
   type: 'reinitialize';
   payload: {list: Item[]};
+}
+
+interface AddFieldsAction<Item> {
+  type: 'addFields';
+  payload: {list: Item[]};
+}
+
+interface RemoveFieldsAction {
+  type: 'removeFields';
+  payload: {indexToRemove: number};
 }
 
 interface TargetedPayload<Item, Key extends keyof Item> {
@@ -66,6 +78,20 @@ export function reinitializeAction<Item>(
   return {
     type: 'reinitialize',
     payload: {list},
+  };
+}
+
+export function addFieldsAction<Item>(list: Item[]): AddFieldsAction<Item> {
+  return {
+    type: 'addFields',
+    payload: {list},
+  };
+}
+
+export function removeFieldsAction(indexToRemove: number): RemoveFieldsAction {
+  return {
+    type: 'removeFields',
+    payload: {indexToRemove},
   };
 }
 
@@ -125,7 +151,21 @@ function reduceList<Item extends object>(
     case 'reinitialize': {
       return {
         initial: action.payload.list,
-        list: action.payload.list.map(initialListItemState),
+        list: action.payload.list.map(initialListItemState), // we need to not use initial. use the one you pass in
+      };
+    }
+    case 'addFields': {
+      return {
+        ...state,
+        list: [...state.list, ...action.payload.list.map(initialListItemState)], // we need to not use initial. use the one you pass in
+      };
+    }
+    case 'removeFields': {
+      const newList = [...state.list];
+      newList.splice(action.payload.indexToRemove, 1);
+      return {
+        ...state,
+        list: newList,
       };
     }
     case 'updateError': {

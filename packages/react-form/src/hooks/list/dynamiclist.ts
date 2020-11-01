@@ -38,7 +38,7 @@ export function useDynamicList<Item extends object>(
   >,
   validationDependencies: unknown[] = [],
 ): DynamicList<Item> {
-  const [calculatedList] = useState<Item[]>(initialList ? initialList : []);
+  const [calculatedList] = useState<Item[]>(initialList);
 
   const validates = validateFunction ? validateFunction : {};
   const [state, dispatch] = useListReducer(calculatedList);

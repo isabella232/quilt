@@ -151,13 +151,13 @@ function reduceList<Item extends object>(
     case 'reinitialize': {
       return {
         initial: action.payload.list,
-        list: action.payload.list.map(initialListItemState), // we need to not use initial. use the one you pass in
+        list: action.payload.list.map(initialListItemState),
       };
     }
     case 'addFields': {
       return {
         ...state,
-        list: [...state.list, ...action.payload.list.map(initialListItemState)], // we need to not use initial. use the one you pass in
+        list: [...state.list, ...action.payload.list.map(initialListItemState)],
       };
     }
     case 'removeFields': {

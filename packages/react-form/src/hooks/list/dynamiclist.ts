@@ -24,29 +24,20 @@ import {
   removeFieldsAction,
 } from './reducer';
 
-export interface FieldListConfig {
-  list: Item[];
-  validates?: Partial<ValidationDictionary<Item, ListValidationContext<Item>>>;
-}
-
-interface Item {
-  title: string;
-  description: string;
-}
-
-interface DynamicList {
+interface DynamicList<Item extends object> {
   fields: FieldDictionary<Item>[];
   addField(): void;
   removeField(index: number): void;
 }
 
-export function useDynamicList(
-  initialList?: Item[],
+export function useDynamicList<Item extends object>(
+  initialList: Item[],
+  factory: Function,
   validateFunction?: Partial<
     ValidationDictionary<Item, ListValidationContext<Item>>
   >,
   validationDependencies: unknown[] = [],
-): DynamicList {
+): DynamicList<Item> {
   const [calculatedList, setCalculatedLists] = useState<Item[]>(
     initialList ? initialList : [],
   );
@@ -74,7 +65,7 @@ export function useDynamicList(
     const fields = calculatedList;
     fields.push();
     setCalculatedLists(fields);
-    dispatch(addFieldsAction([{title: '', description: ''}]));
+    dispatch(addFieldsAction([factory()]));
   }
 
   function removeField(index: number) {

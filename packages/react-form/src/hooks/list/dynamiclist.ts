@@ -41,15 +41,17 @@ interface DynamicList {
 }
 
 export function useDynamicList(
+  initialList?: Item[],
   validateFunction?: Partial<
     ValidationDictionary<Item, ListValidationContext<Item>>
   >,
   validationDependencies: unknown[] = [],
 ): DynamicList {
-  const [calculatedList, setCalculatedLists] = useState<Item[]>([]);
+  const [calculatedList, setCalculatedLists] = useState<Item[]>(
+    initialList ? initialList : [],
+  );
 
   const validates = validateFunction ? validateFunction : {};
-  console.log(calculatedList);
   const [state, dispatch] = useListReducer(calculatedList);
 
   useEffect(() => {
@@ -71,7 +73,6 @@ export function useDynamicList(
   function addField() {
     const fields = calculatedList;
     fields.push();
-    console.log(fields);
     setCalculatedLists(fields);
     dispatch(addFieldsAction([{title: '', description: ''}]));
   }

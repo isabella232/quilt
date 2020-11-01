@@ -38,9 +38,7 @@ export function useDynamicList<Item extends object>(
   >,
   validationDependencies: unknown[] = [],
 ): DynamicList<Item> {
-  const [calculatedList, setCalculatedLists] = useState<Item[]>(
-    initialList ? initialList : [],
-  );
+  const [calculatedList] = useState<Item[]>(initialList ? initialList : []);
 
   const validates = validateFunction ? validateFunction : {};
   const [state, dispatch] = useListReducer(calculatedList);
@@ -62,9 +60,6 @@ export function useDynamicList<Item extends object>(
   );
 
   function addField() {
-    const fields = calculatedList;
-    fields.push();
-    setCalculatedLists(fields);
     dispatch(addFieldsAction([factory()]));
   }
 

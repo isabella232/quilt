@@ -32,7 +32,6 @@ export function useDynamicList<Item extends object>(
   )
     ? {}
     : listOrConfig.validates || {};
-  // const [calculatedList] = useState<Item[]>(initialList);
   const [state, dispatch] = useListReducer(calculatedList);
 
   useEffect(() => {

@@ -1,8 +1,7 @@
-import {useMemo, useEffect, ChangeEvent, useState} from 'react';
+import {useMemo, useEffect, ChangeEvent} from 'react';
 import isEqual from 'fast-deep-equal';
 
 import {
-  ValidationDictionary,
   Validator,
   NormalizedValidationDictionary,
   FieldStates,
@@ -23,6 +22,7 @@ import {
   addFieldsAction,
   removeFieldsAction,
 } from './reducer';
+import {FieldListConfig} from './list';
 
 interface DynamicList<Item extends object> {
   fields: FieldDictionary<Item>[];
@@ -31,16 +31,19 @@ interface DynamicList<Item extends object> {
 }
 
 export function useDynamicList<Item extends object>(
-  initialList: Item[],
+  listOrConfig: FieldListConfig<Item> | Item[],
   factory: Function,
-  validateFunction?: Partial<
-    ValidationDictionary<Item, ListValidationContext<Item>>
-  >,
   validationDependencies: unknown[] = [],
 ): DynamicList<Item> {
-  const [calculatedList] = useState<Item[]>(initialList);
-
-  const validates = validateFunction ? validateFunction : {};
+  const calculatedList = Array.isArray(listOrConfig)
+    ? listOrConfig
+    : listOrConfig.list;
+  const validates: FieldListConfig<Item>['validates'] = Array.isArray(
+    listOrConfig,
+  )
+    ? {}
+    : listOrConfig.validates || {};
+  // const [calculatedList] = useState<Item[]>(initialList);
   const [state, dispatch] = useListReducer(calculatedList);
 
   useEffect(() => {

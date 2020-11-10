@@ -32,7 +32,7 @@ interface DynamicList<Item extends object> {
 
 export function useDynamicList<Item extends object>(
   listOrConfig: FieldListConfig<Item> | Item[],
-  factory: Function,
+  fieldFactory: Function,
   validationDependencies: unknown[] = [],
 ): DynamicList<Item> {
   const calculatedList = Array.isArray(listOrConfig)
@@ -63,7 +63,7 @@ export function useDynamicList<Item extends object>(
   );
 
   function addField() {
-    dispatch(addFieldsAction([factory()]));
+    dispatch(addFieldsAction([fieldFactory()]));
   }
 
   function removeField(index: number) {

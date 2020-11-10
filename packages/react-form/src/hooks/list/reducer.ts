@@ -11,7 +11,7 @@ import {mapObject} from '../../utilities';
 
 export type ListAction<Item> =
   | ReinitializeAction<Item>
-  | AddFieldsAction<Item>
+  | AddFieldAction<Item>
   | RemoveFieldAction
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
@@ -23,7 +23,7 @@ interface ReinitializeAction<Item> {
   payload: {list: Item[]};
 }
 
-interface AddFieldsAction<Item> {
+interface AddFieldAction<Item> {
   type: 'addFields';
   payload: {list: Item[]};
 }
@@ -81,7 +81,7 @@ export function reinitializeAction<Item>(
   };
 }
 
-export function addFieldsAction<Item>(list: Item[]): AddFieldsAction<Item> {
+export function addFieldsAction<Item>(list: Item[]): AddFieldAction<Item> {
   return {
     type: 'addFields',
     payload: {list},

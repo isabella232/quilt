@@ -9,7 +9,7 @@ import {
 } from '../field';
 import {mapObject} from '../../utilities';
 
-type ListAction<Item> =
+export type ListAction<Item> =
   | ReinitializeAction<Item>
   | AddFieldsAction<Item>
   | RemoveFieldsAction

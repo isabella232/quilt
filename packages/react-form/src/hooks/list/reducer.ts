@@ -12,7 +12,7 @@ import {mapObject} from '../../utilities';
 export type ListAction<Item> =
   | ReinitializeAction<Item>
   | AddFieldsAction<Item>
-  | RemoveFieldsAction
+  | RemoveFieldAction
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
   | ResetAction<Item, keyof Item>
@@ -28,7 +28,7 @@ interface AddFieldsAction<Item> {
   payload: {list: Item[]};
 }
 
-interface RemoveFieldsAction {
+interface RemoveFieldAction {
   type: 'removeFields';
   payload: {indexToRemove: number};
 }
@@ -88,7 +88,7 @@ export function addFieldsAction<Item>(list: Item[]): AddFieldsAction<Item> {
   };
 }
 
-export function removeFieldsAction(indexToRemove: number): RemoveFieldsAction {
+export function removeFieldsAction(indexToRemove: number): RemoveFieldAction {
   return {
     type: 'removeFields',
     payload: {indexToRemove},

@@ -772,8 +772,6 @@ describe('useDynamicList', () => {
           .find('button', {children: 'Add Variant'})!
           .trigger('onClick', clickEvent());
 
-        // const addedTextField = wrapper.findAll(TextField)![0];
-
         expect(wrapper).toContainReactComponent(TextField, {
           name: 'price0',
           value: variants[0].price,
@@ -792,8 +790,6 @@ describe('useDynamicList', () => {
         wrapper
           .findAll('button', {children: 'Remove Variant'})![1]
           .trigger('onClick', clickEvent());
-
-        // const addedTextField = wrapper.findAll(TextField)![0];
 
         expect(wrapper).toContainReactComponent(TextField, {
           name: 'price0',

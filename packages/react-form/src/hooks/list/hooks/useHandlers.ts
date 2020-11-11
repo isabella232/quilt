@@ -1,6 +1,6 @@
 import {ChangeEvent, useMemo} from 'react';
-import {mapObject, isChangeEvent} from '../../../utilities';
 
+import {mapObject, isChangeEvent} from '../../../utilities';
 import {
   FieldDictionary,
   FieldState,
@@ -16,6 +16,7 @@ import {
   ListAction,
 } from '../reducer';
 import {runValidation} from '../utils';
+
 export function useHandlers<Item extends object>(
   state: ListState<Item>,
   dispatch: React.Dispatch<ListAction<Item>>,

@@ -746,7 +746,7 @@ describe('useDynamicList', () => {
         expect(wrapper).not.toContainReactComponent(TextField);
       });
 
-      it('can add field', async () => {
+      it('can add field', () => {
         const variants: Variant[] = randomVariants(1);
 
         const wrapper = mount(<DynamicListComponent list={variants} />);
@@ -763,7 +763,7 @@ describe('useDynamicList', () => {
         });
       });
 
-      it('can add field and maintains previous field value', async () => {
+      it('can add field and maintains previous field value', () => {
         const variants: Variant[] = randomVariants(1);
 
         const wrapper = mount(<DynamicListComponent list={variants} />);
@@ -778,7 +778,7 @@ describe('useDynamicList', () => {
         });
       });
 
-      it('can remove field and maintains previous field value', async () => {
+      it('can remove field and maintains previous field value', () => {
         const variants: Variant[] = randomVariants(1);
 
         const wrapper = mount(<DynamicListComponent list={variants} />);
